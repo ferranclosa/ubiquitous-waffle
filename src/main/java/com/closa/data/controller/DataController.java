@@ -8,9 +8,7 @@ import com.closa.global.throwables.AppException;
 import com.closa.global.throwables.MessageCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -27,7 +25,8 @@ public class DataController {
 
     @CrossOrigin
     @PostMapping(value ="/open/SMNU01/getAllFunctionGroups",  consumes= MediaType.APPLICATION_JSON_VALUE, produces =  MediaType.APPLICATION_JSON_VALUE)
-    public SMNU01oDTO provideMenus(GlobaliDTO iDto ){
+    @ResponseBody
+    public SMNU01oDTO provideMenus(@RequestBody GlobaliDTO iDto ){
         Instant inFirst = Instant.now();
         SMNU01oDTO oDto = new SMNU01oDTO();
         logger.info("[SMNU01] iDto (input) : " + iDto.toJson());
@@ -55,7 +54,8 @@ public class DataController {
 
     @CrossOrigin
     @PostMapping(value ="/SMNU02/getAllGroups",  consumes= MediaType.APPLICATION_JSON_VALUE, produces =  MediaType.APPLICATION_JSON_VALUE)
-    public SMNU01oDTO provideMenusSecured(GlobaliDTO iDto ){
+    @ResponseBody
+    public SMNU01oDTO provideMenusSecured(@RequestBody GlobaliDTO iDto ){
         Instant inFirst = Instant.now();
         SMNU01oDTO oDto = new SMNU01oDTO();
         logger.info("[SMNU02] iDto (input) : " + iDto.toJson());
