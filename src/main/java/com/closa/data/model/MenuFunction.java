@@ -4,8 +4,6 @@ import com.closa.global.model.EntityCommon;
 import com.closa.global.status.model.ItemStatus;
 import com.closa.global.status.model.enums.Status;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import org.hibernate.annotations.ManyToAny;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -43,9 +41,12 @@ public class MenuFunction implements EntityCommon {
     @Column(length = 5, nullable = true, name = "mf_level")
     private String mfAccessLevel;
 
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    @OneToMany(mappedBy = "moFunction",
-            cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+
+    @ManyToMany
+    @JoinTable(
+            name = "data_function_options",
+            joinColumns = {@JoinColumn(name="fk_function")},
+            inverseJoinColumns = {@JoinColumn(name="fk_option")})
     private List<MenuOption> mfOptions = new ArrayList<MenuOption>();
     @Embedded
     private ItemStatus mfStatus;
@@ -122,12 +123,20 @@ public class MenuFunction implements EntityCommon {
         this.mfAccessLevel = mfAccessLevel;
     }
 
+    public void addOption (MenuOption option){
+     this.mfOptions.add(option);
+
+    }
+    public void removeOption (MenuOption option){
+        this.mfOptions.remove(option);
+    }
+
     public List<MenuOption> getMfOptions() {
         return mfOptions;
     }
 
-    public void setMfOptions(List<MenuOption> mfOptions) {
-        this.mfOptions = mfOptions;
+    public void setMfOptions(List<MenuOption> moOptions) {
+        this.mfOptions = moOptions;
     }
 
     public ItemStatus getMfStatus() {

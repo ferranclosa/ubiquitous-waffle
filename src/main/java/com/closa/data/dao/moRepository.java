@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface moRepository extends JpaRepository<MenuOption, Long> {
+    MenuOption findByMoCode(String moCode);
 }

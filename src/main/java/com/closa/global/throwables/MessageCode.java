@@ -10,7 +10,10 @@ public enum MessageCode {
     APP0006("Result set is empty. Expected at least one item", "08" ),
     APP0007("Result set is not empty. Expected to be empty", "09" ),
     APP0008("Database related error. Check stack trace in logs", "98" ),
+    APP0009("See below the result of your query", "00" ),
+
     APP0099("Generic technical error. Check the Stack on the logs", "99" )
+
 
 
 

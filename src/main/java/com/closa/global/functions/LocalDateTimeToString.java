@@ -2,7 +2,6 @@ package com.closa.global.functions;
 
 import com.fasterxml.jackson.databind.util.StdConverter;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -15,6 +14,7 @@ public class LocalDateTimeToString extends StdConverter<LocalDateTime, String> {
             .withZone(ZoneId.systemDefault());
     @Override
     public String convert(LocalDateTime localDateTime) {
+
         return localDateTime.format(formatter);
     }
 }

@@ -4,7 +4,6 @@ import com.closa.global.model.EntityCommon;
 import com.closa.global.status.model.ItemStatus;
 import com.closa.global.status.model.enums.Status;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -45,7 +44,7 @@ public class MenuGroup implements EntityCommon {
     private Boolean mgActive;
 
     private String mgAccessLevel;
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+//    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @OneToMany(mappedBy = "mfGroup",
     cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<MenuFunction> mgFunctions = new ArrayList<MenuFunction>();
@@ -132,5 +131,17 @@ public class MenuGroup implements EntityCommon {
             return true;
         } else
             return false;
+    }
+
+    public String getMgDescription() {
+        return mgDescription;
+    }
+
+    public void setMgDescription(String mgDescription) {
+        this.mgDescription = mgDescription;
+    }
+
+    public void setMgActive(Boolean mgActive) {
+        this.mgActive = mgActive;
     }
 }

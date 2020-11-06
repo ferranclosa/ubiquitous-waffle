@@ -8,9 +8,13 @@ public enum Status implements EntityCommon {
     REJECTED("K.REJ"),
     DESACTIVATED("K.DES"),
     CLOSED("S.CLO"),
+    DELETED("S.DEL"),
     BLOCKED("K.BLK"),
     PROCESSING("T.PRC"),
-    WAITING_VALID("T.WFV");
+    WAITING_USERVALID("T.WUV"),
+    WAITING_SATAFFVALID("T.WSV")
+
+    ;
     private String value ;
 
     Status(String value ) {

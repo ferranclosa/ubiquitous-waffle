@@ -3,6 +3,8 @@ package com.closa.global.status.model;
 import com.closa.global.model.EntityCommon;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -16,10 +18,41 @@ public class StatusCodes implements EntityCommon {
     @Column(name="status_description", length = 255, nullable = false)
     private String statusDescription;
 
+    @ManyToMany
+    @JoinTable(
+            name = "parm_status_cases",
+            joinColumns = {@JoinColumn(name="fk_status")},
+            inverseJoinColumns = {@JoinColumn(name="fk_author")})
+    private List<StatusUseCase> useCases = new ArrayList<StatusUseCase>();
+
+    @Transient
+    private String useCaseString ;
+
     @Embedded
     private ItemStatus status;
 
+
     public StatusCodes()  {
+    }
+
+    public List<StatusUseCase> getUseCases() {
+        return useCases;
+    }
+
+    public String getUseCaseString() {
+
+        return useCaseString;
+    }
+
+    public void setUseCaseString() {
+        List<StatusUseCase> cases = this.useCases;
+        for (StatusUseCase one : cases){
+            useCaseString = useCaseString + one.getUscCode().toString();
+        }
+    }
+
+    public void setUseCases(List<StatusUseCase> useCases) {
+        this.useCases = useCases;
     }
 
     public StatusCodes(String sc, String desc) {
@@ -72,5 +105,12 @@ public class StatusCodes implements EntityCommon {
 
     public void setStatus(ItemStatus status) {
         this.status = status;
+    }
+
+    public void addUseCase(StatusUseCase usc){
+        this.useCases.add(usc);
+    }
+    public void removeUseCase(StatusUseCase usc){
+        this.useCases.remove(usc);
     }
 }

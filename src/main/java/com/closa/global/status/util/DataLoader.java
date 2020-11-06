@@ -1,15 +1,16 @@
 package com.closa.global.status.util;
 
+import com.closa.global.status.dao.SUseCaseRepo;
 import com.closa.global.status.dao.ScdRepository;
 import com.closa.global.status.dao.SscdRepository;
 import com.closa.global.status.model.StatusCodes;
 import com.closa.global.status.model.StatusSubCode;
+import com.closa.global.status.model.StatusUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,24 +22,67 @@ public class DataLoader implements CommandLineRunner {
     ScdRepository scdRepository;
     @Autowired
     SscdRepository sscdRepository;
+
+    @Autowired
+    SUseCaseRepo uscRepo;
+
     @Autowired
     StatusHelper sh ;
 
     @Override
-    @Transactional
+    //@Transactional
     public void run(String... args) throws Exception { StatusSubCode sscd = null;
         StatusCodes scd = null;
+    Long usc = uscRepo.count();
+    if(usc == 0 )
+    {
+        StatusUseCase useCase = new StatusUseCase();
+        useCase.setUscCode("C");
+        useCase.setUscDescription("CREATE");
+        uscRepo.save(useCase);
+
+        useCase = new StatusUseCase();
+        useCase.setUscCode("U");
+        useCase.setUscDescription("UPDATE");
+        uscRepo.save(useCase);
+
+        useCase = new StatusUseCase();
+        useCase.setUscCode("D");
+        useCase.setUscDescription("DELETE");
+        uscRepo.save(useCase);
+
+        useCase = new StatusUseCase();
+        useCase.setUscCode("A");
+        useCase.setUscDescription("APPROVE");
+        uscRepo.save(useCase);
+
+        useCase = new StatusUseCase();
+        useCase.setUscCode("A");
+        useCase.setUscDescription("APPROVE");
+        uscRepo.save(useCase);
+
+    }
+
         Long sts = scdRepository.count();
         if (sts == 0 ){
             scd = new StatusCodes("A", "ACTIVATED");
+            scd.addUseCase(uscRepo.getOne("C"));
+            scd.addUseCase(uscRepo.getOne("U"));
+
             scdRepository.save(scd);
             scd = new StatusCodes("S", "CLOSED");
+            scd.addUseCase(uscRepo.getOne("D"));
+            scd.addUseCase(uscRepo.getOne("U"));
             scdRepository.save(scd);
             scd = new StatusCodes("Z", "AVENANT");
             scdRepository.save(scd);
             scd = new StatusCodes("K", "SUSPENDED");
+            scd.addUseCase(uscRepo.getOne("U"));
+
             scdRepository.save(scd);
             scd = new StatusCodes("T", "IN TRANSIT");
+            scd.addUseCase(uscRepo.getOne("C"));
+            scd.addUseCase(uscRepo.getOne("U"));
             scdRepository.save(scd);
         }
 
@@ -48,6 +92,11 @@ public class DataLoader implements CommandLineRunner {
             sscd = new StatusSubCode("ACT", "FULLY OPERATIONAL", osc.get());
             sscdRepository.save(sscd);
             sscd = new StatusSubCode("DOR", "DORMANT OR INACTIVE", osc.get());
+            sscdRepository.save(sscd);
+            osc = scdRepository.findById("S");
+            sscd = new StatusSubCode("CLO", "CLOSED", osc.get());
+            sscdRepository.save(sscd);
+            sscd = new StatusSubCode("DEL", "DELETED", osc.get());
             sscdRepository.save(sscd);
 
             osc = scdRepository.findById("T");

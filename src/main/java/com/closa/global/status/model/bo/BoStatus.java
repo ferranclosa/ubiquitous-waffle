@@ -1,19 +1,59 @@
 package com.closa.global.status.model.bo;
 
-import java.util.Objects;
+import com.closa.global.status.model.StatusCodes;
+import com.closa.global.status.model.StatusUseCase;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
+import java.util.List;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class BoStatus {
+
+    @JsonIgnore
+    private StatusCodes theFullObject;
     private String compositeStatus;
     private String description;
-    private String useCase;
+    private String cases;
+
+
+    public BoStatus(StatusCodes theFullObject, String compositeStatus, String description) {
+        this.theFullObject = theFullObject;
+        this.compositeStatus = compositeStatus;
+        this.description = description;
+    }
 
     public BoStatus() {
+    }
+
+    public StatusCodes getTheFullObject() {
+        return theFullObject;
+    }
+
+    public void setTheFullObject(StatusCodes theFullObject) {
+        this.theFullObject = theFullObject;
+    }
+
+    public String getCases() {
+        return cases;
+    }
+
+
+
+    public void setCases(List<StatusUseCase> useCases) {
+        String result = "";
+        List<StatusUseCase> list = useCases;
+        for (StatusUseCase one : list){
+            result  = result.trim() + one.getUscCode().toString();
+        }
+        this.cases = result;
     }
 
     public BoStatus(String compositeStatus, String description) {
         this.compositeStatus = compositeStatus;
         this.description = description;
     }
+
 
     public String getCompositeStatus() {
         return compositeStatus;
@@ -31,26 +71,4 @@ public class BoStatus {
         this.description = description;
     }
 
-    public String getUseCase() {
-        return useCase;
-    }
-
-    public void setUseCase(String useCase) {
-        this.useCase = useCase;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        BoStatus boStatus = (BoStatus) o;
-        return Objects.equals(compositeStatus, boStatus.compositeStatus) &&
-                Objects.equals(description, boStatus.description) &&
-                Objects.equals(useCase, boStatus.useCase);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(compositeStatus, description, useCase);
-    }
 }

@@ -50,5 +50,8 @@ public class StatusHelper {
         is.setStatusSetWhen();
         return is;
     }
+    public Boolean isActive(ItemStatus itemStatus){
+        return  itemStatus.getActive();
+    }
 
 }

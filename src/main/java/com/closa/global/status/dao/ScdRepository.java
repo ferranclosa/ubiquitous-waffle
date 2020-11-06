@@ -12,7 +12,10 @@ import java.util.List;
 public interface ScdRepository extends JpaRepository<StatusCodes, String> {
 
     @Query("select new com.closa.global.status.model.bo.BoStatus (" +
-            " concat(a.statusCode , '.' , b.stsSubCode) , b.stsScdDescription) " +
-            "from StatusCodes a join StatusSubCode b on a.statusCode = b.belongsTo")
+            " a,  concat(a.statusCode , '.' , b.stsSubCode) , b.stsScdDescription) " +
+            "from " +
+            "StatusCodes a join StatusSubCode b on a.statusCode = b.belongsTo " )
     List<BoStatus> provideDynamicStatus();
+
+
 }
