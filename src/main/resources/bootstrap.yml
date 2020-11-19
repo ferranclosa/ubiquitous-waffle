@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: data-server
+  cloud:
+    discovery:
+      service-id: data-server
+      enabled: true

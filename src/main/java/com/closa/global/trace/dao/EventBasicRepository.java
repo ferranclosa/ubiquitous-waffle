@@ -2,7 +2,6 @@ package com.closa.global.trace.dao;
 
 import com.closa.global.trace.model.Connection;
 import com.closa.global.trace.model.EventBasic;
-import com.closa.global.trace.model.EventEnhanced;
 import com.closa.global.trace.model.enums.EventsHandled;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

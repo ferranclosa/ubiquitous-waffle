@@ -7,7 +7,6 @@ import com.closa.global.trace.model.enums.EventsHandled;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import javax.persistence.*;
-import java.time.Instant;
 import java.time.LocalDateTime;
 
 @Entity
