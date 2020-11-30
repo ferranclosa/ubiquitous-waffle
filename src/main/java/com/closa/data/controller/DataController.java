@@ -24,7 +24,7 @@ public class DataController {
     @Autowired
     DataService dataService;
 
-    @CrossOrigin
+    //@CrossOrigin
     @PostMapping(value ="/open/SMNU01/getAllFunctionGroups",  consumes= MediaType.APPLICATION_JSON_VALUE, produces =  MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public SMNU01oDTO provideMenus(@RequestBody GlobaliDTO iDto ){
@@ -53,7 +53,7 @@ public class DataController {
 
     }
 
-    @CrossOrigin
+   // @CrossOrigin
     @PostMapping(value ="/SMNU02/getAllGroups",  consumes= MediaType.APPLICATION_JSON_VALUE, produces =  MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public SMNU01oDTO provideMenusSecured(@RequestBody GlobaliDTO iDto ){
@@ -82,7 +82,7 @@ public class DataController {
 
     }
 
-    @CrossOrigin
+    //@CrossOrigin
     @PostMapping(value ="/SMNU03/createAMenuGroup",  consumes= MediaType.APPLICATION_JSON_VALUE, produces =  MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public GlobaloDTO createGroup(@RequestBody SMNU03iDTO iDto ){
@@ -110,7 +110,7 @@ public class DataController {
         return oDto;
 
     }
-    @CrossOrigin
+   // @CrossOrigin
     @PostMapping(value ="/SMNU04/deleteAMenuGroup",  consumes= MediaType.APPLICATION_JSON_VALUE, produces =  MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public GlobaloDTO deleteGroup(@RequestBody SMNU04iDTO iDto ){
@@ -139,7 +139,7 @@ public class DataController {
 
     }
 
-    @CrossOrigin
+   // @CrossOrigin
     @PostMapping(value ="/SMNU06/updateAMenuGroup",  consumes= MediaType.APPLICATION_JSON_VALUE, produces =  MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public GlobaloDTO updateGroup(@RequestBody SMNU06iDTO iDto ){
@@ -167,7 +167,7 @@ public class DataController {
         return oDto;
 
     }
-    @CrossOrigin
+   // @CrossOrigin
     @GetMapping(value = "/SDTA01/getStatus", produces = MediaType.APPLICATION_JSON_VALUE)
     public SDTA01oDTO getStatus(){
         SDTA01oDTO oDto = new SDTA01oDTO();
@@ -196,7 +196,7 @@ public class DataController {
 
     }
 
-    @CrossOrigin
+   // @CrossOrigin
     @PostMapping(value ="/SMNU07/getAllFunctionsInGroups",  consumes= MediaType.APPLICATION_JSON_VALUE, produces =  MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public SMNU07oDTO getAllFunctionsInGroups(@RequestBody SMNU07iDTO iDto ){
@@ -228,7 +228,7 @@ public class DataController {
 
     }
 
-    @CrossOrigin
+    //@CrossOrigin
     @PostMapping(value ="/SMNU08/findAllFunctions",  consumes= MediaType.APPLICATION_JSON_VALUE, produces =  MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public SMNU07oDTO findAllFunctions(@RequestBody GlobaliDTO iDto ){
