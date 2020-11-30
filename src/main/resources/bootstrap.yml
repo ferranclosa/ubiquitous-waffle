@@ -1,9 +1,9 @@
 spring:
   application:
-    name: data-server
+    name: data
   cloud:
     discovery:
-      service-id: data-server
+      service-id: data
       enabled: true
     config:
       uri: http://localhost:8071
