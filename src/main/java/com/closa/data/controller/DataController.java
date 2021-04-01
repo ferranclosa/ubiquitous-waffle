@@ -117,8 +117,7 @@ public class DataController {
         Instant inFirst = Instant.now();
         GlobaloDTO oDto = new GlobaloDTO();
         logger.info("[SMNU04-Delete a Group] iDto (input) : " + iDto.toJson());
-
-        try {
+     try {
             oDto = dataService.dealWithDeleteGroup(iDto);
         } catch (AppException e ) {
             oDto.setReturnCode(e.getrCode());
@@ -128,10 +127,8 @@ public class DataController {
             oDto.setReturnCode(MessageCode.APP0099.getrCode());
             oDto.setReturnLabel(MessageCode.APP0099.getmMsg());
             e.printStackTrace();
-
         }
         Instant inLast = Instant.now();
-
         logger.info("[SMNU04] oDto (output)  : " + oDto.toJson());
         logger.info("[SMNU04] Duration  : " + Duration.between(inFirst , inLast).toMillis() + " milliseconds" ) ;
 
@@ -255,6 +252,32 @@ public class DataController {
 
         return oDto;
 
+    }
+    @CrossOrigin
+    @PostMapping(value = "/SMNU10/getAllApps", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public SMNU10oDTO getAllApps(@RequestBody GlobaliDTO iDto){
+        SMNU10oDTO oDto = new  SMNU10oDTO();
+        Instant inFirst = Instant.now();
+        logger.info("[SMNU10] Start ");
+
+        try {
+            oDto = dataService.dealWithGetApps(iDto);
+        } catch (AppException e ) {
+            oDto.setReturnCode(e.getrCode());
+            oDto.setReturnLabel(e.getMessageText() );
+
+        } catch (Exception e){
+            oDto.setReturnCode(MessageCode.APP0099.getrCode());
+            oDto.setReturnLabel(MessageCode.APP0099.getmMsg());
+            e.printStackTrace();
+        }
+        Instant inLast = Instant.now();
+
+        logger.info("[SMNU10] oDto (output)  : " + oDto.toJson());
+        logger.info("[SMNU10] Duration  : " + Duration.between(inFirst , inLast).toMillis() + " milliseconds" ) ;
+
+        return oDto;
     }
 
 

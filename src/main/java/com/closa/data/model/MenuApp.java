@@ -4,6 +4,8 @@ import com.closa.global.model.EntityCommon;
 import com.closa.global.status.model.ItemStatus;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="data_menu_app", indexes = {@Index(name = "UQ_ByApplication", unique = true, columnList = "ma_app")})
@@ -25,6 +27,10 @@ public class MenuApp implements EntityCommon {
     private String maApplication;
     @Column(name="ma_secured")
     private Boolean maIsAccessSecured;
+    @OneToMany(mappedBy = "menuApp",
+            cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<MenuGroup> maGroups = new ArrayList<MenuGroup>();
+
     @Embedded
     private ItemStatus maStatus;
 
@@ -57,6 +63,14 @@ public class MenuApp implements EntityCommon {
 
     public ItemStatus getMaStatus() {
         return maStatus;
+    }
+
+    public List<MenuGroup> getMaGroups() {
+        return maGroups;
+    }
+
+    public void setMaGroups(List<MenuGroup> maGroups) {
+        this.maGroups = maGroups;
     }
 
     public void setMaStatus(ItemStatus maStatus) {

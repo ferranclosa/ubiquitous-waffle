@@ -1,8 +1,10 @@
 package com.closa.data.service;
 
+import com.closa.data.dao.maRepository;
 import com.closa.data.dao.mfRepository;
 import com.closa.data.dao.mgRepository;
 import com.closa.data.dto.*;
+import com.closa.data.model.MenuApp;
 import com.closa.data.model.MenuFunction;
 import com.closa.data.model.MenuGroup;
 import com.closa.global.dto.GlobaliDTO;
@@ -36,6 +38,9 @@ public class DataService {
 
     @Autowired
     mfRepository mfRepository;
+
+    @Autowired
+    maRepository maRepository;
 
     @Autowired
     ScdRepository stsRepo;
@@ -190,5 +195,29 @@ public class DataService {
         return oDto;
 
 
+    }
+
+    public SMNU10oDTO dealWithGetApps(GlobaliDTO iDto) throws AppException {
+        SMNU10oDTO oDto = new SMNU10oDTO();
+        Pageable pageable = ph.buildThePageable(iDto);
+        if (pageable == null) {
+            List<MenuApp> list = maRepository.findAll();
+            oDto.getMenuApps().addAll(list);
+            oDto.setReturnCode(MessageCode.APP0000.getrCode());
+
+        } else {
+            Page<MenuApp> list = maRepository.findAll(pageable);
+            oDto.setReturnCode(MessageCode.APP0008.getrCode());
+            oDto.setTotalNumberOfItems(list.getTotalElements());
+            oDto.setTotalNumberOfPages(list.getTotalPages());
+            oDto.setLastItemsProvided(list.getNumberOfElements());
+            if (list.getNumberOfElements() == 0) {
+                throw new UnexpectedEmptyResultException("SMNU10");
+            }
+            oDto.getMenuApps().addAll(list.getContent());
+            oDto.setReturnCode(MessageCode.APP0009.getrCode());
+        }
+
+        return oDto;
     }
 }
