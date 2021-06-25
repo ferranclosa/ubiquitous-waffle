@@ -2,8 +2,6 @@ package com.closa.global.functions;
 
 import com.closa.global.dto.GlobaliDTO;
 import com.closa.global.dto.StandardQuery;
-import org.aspectj.weaver.patterns.HasThisTypePatternTriedToSneakInSomeGenericOrParameterizedTypePatternMatchingStuffAnywhereVisitor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;

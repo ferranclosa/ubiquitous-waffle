@@ -12,7 +12,7 @@ import java.util.List;
 @Entity
 @Table(name= "data_menu_functions" , indexes = {@Index(name = "UQ_ByCode", unique = true, columnList = "mf_code")})
 public class MenuFunction implements EntityCommon {
-    @Id
+    @org.springframework.data.annotation.Id
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "FNCID")
     @TableGenerator(name="FNCID",
             table="GEN_ID",
@@ -22,6 +22,7 @@ public class MenuFunction implements EntityCommon {
             initialValue = 0,
             allocationSize = 10
     )
+    @Id
     @Column(name="mf_id")
     private Long id;
     @ManyToOne (fetch = FetchType.LAZY)

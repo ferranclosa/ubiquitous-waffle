@@ -1,7 +1,5 @@
 package com.closa.global.trace.model;
 
-import com.closa.global.model.EntityCommon;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
